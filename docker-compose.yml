@@ -1,10 +1,10 @@
 version: "3"
 services:
-  db_pg:
+  db_memory_app:
     image: postgres
-    container_name: db_pg
+    container_name: db_memory_app
     volumes:
-      - db_pg_volume:/data/postgres
+      - db_memory_app_volume:/data/postgres
 
     environment:
       POSTGRES_PASSWORD: "postgres"
@@ -12,15 +12,15 @@ services:
     ports:
       - "5444:5432"
 
-  rails_server:
+  memory_app_back:
     build:
       context: "."
       dockerfile: "Dockerfile_rails"
-    container_name: rails_server
+    container_name: memory_app_back
     volumes:
       - ./volume/memory-app-rails:/app
     depends_on:
-      - db_pg
+      - db_memory_app
     environment:
       RUBYOPT: "-W:no-deprecated -W:no-experimental"
       RAILS_MASTER_KEY: "a667717bf0a47475b0582547379c816d"
@@ -30,7 +30,7 @@ services:
       - "3333:3000"
 
 volumes:
-  db_pg_volume:
+  db_memory_app_volume:
 # docker-compose build
 # docker-compose up -d
 # docker exec -it rails bash
