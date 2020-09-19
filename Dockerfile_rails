@@ -3,6 +3,8 @@ FROM ruby:alpine3.12
 # config home environment
 WORKDIR /app
 
+RUN gem install bundler rake
+
 COPY ./app/Gemfile /app/Gemfile
 COPY ./app/Gemfile.lock /app/Gemfile.lock
 RUN bundle install
