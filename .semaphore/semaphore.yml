@@ -13,8 +13,8 @@ blocks:
             - checkout
             - docker-compose build
             - docker-compose up -d
-            - docker-compose exec memory_app_back rake db:create
-            - docker-compose exec memory_app_back rake db:migrate
+            - "docker-compose exec memory_app_back rake db:create"
+            - "docker-compose exec memory_app_back rake db:migrate"
             - docker-compose exec memory_app_back rspec
       env_vars:
         - name: CI_ENV
