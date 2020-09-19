@@ -1,6 +1,5 @@
 FROM ruby:alpine3.12
 
-# config home environment
 WORKDIR /app
 RUN apk update \
   && apk upgrade \
@@ -8,9 +7,11 @@ RUN apk update \
   build-base curl curl-dev git postgresql-dev \
   yaml-dev zlib-dev nodejs yarn tzdata
 
-# RUN apk add --update tzdata git ruby-dev libz-dev libiconv-hook1 libiconv-hook-dev
 RUN gem install bundler rake
 
 COPY ./app/Gemfile /app/Gemfile
 COPY ./app/Gemfile.lock /app/Gemfile.lock
 RUN bundle install
+
+# docker build -t edimossilva/memory_app_rails
+# docker push edimossilva/memory_app_rails

@@ -13,9 +13,7 @@ services:
       - "5444:5432"
 
   memory_app_back:
-    build:
-      context: "."
-      dockerfile: "Dockerfile_rails"
+    image: edimossilva/memory_app_rails
     container_name: memory_app_back
     volumes:
       - ./app:/app
