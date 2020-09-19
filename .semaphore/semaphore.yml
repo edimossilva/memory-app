@@ -11,10 +11,10 @@ blocks:
         - name: docker test
           commands:
             - checkout
-            - rm -rf tmp/cache/bootsnap
             - docker-compose build
             - docker-compose up -d
             - 'docker-compose exec memory_app_back rake db:create'
             - 'docker-compose exec memory_app_back rake db:migrate'
+            - rm -rf app/tmp
             - docker-compose exec memory_app_back rspec
             - docker-compose exec memory_app_back rspec
