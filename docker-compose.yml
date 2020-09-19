@@ -17,6 +17,7 @@ services:
     container_name: memory_app_back
     volumes:
       - ./app:/app
+      - /app/tmp
     depends_on:
       - db_memory_app
     environment:
