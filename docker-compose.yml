@@ -18,6 +18,7 @@ services:
     volumes:
       - ./app:/app
       - /app/tmp
+      - /tmp
     depends_on:
       - db_memory_app
     environment:
