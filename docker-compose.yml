@@ -18,7 +18,7 @@ services:
       dockerfile: "Dockerfile_rails"
     container_name: memory_app_back
     volumes:
-      - ./volume/memory-app-rails:/app
+      - ./app:/app
     depends_on:
       - db_memory_app
     environment:
