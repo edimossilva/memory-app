@@ -11,6 +11,7 @@ blocks:
         - name: docker test
           commands:
             - checkout
+            - rm -rf tmp/cache/bootsnap
             - docker-compose build
             - docker-compose up -d
             - 'docker-compose exec memory_app_back rake db:create'
