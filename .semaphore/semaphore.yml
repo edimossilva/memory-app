@@ -5,18 +5,20 @@ agent:
     type: e1-standard-2
     os_image: ubuntu1804
 blocks:
-  - name: Tests
+  - name: Build
     task:
       jobs:
-        - name: build
+        - name: docker test
           commands:
             - checkout
             - docker-compose build
             - docker-compose up -d
-        - name: Config DB
-          commands:
             - 'docker-compose exec memory_app_back rake db:create'
-            - 'docker-compose exec memory_app_back rake db:migrate'
-        - name: Test
+            - 'docker-compose exec  memory_app_back rake db:migrate'
+            - docker-compose exec  memory_app_back rspec
+  - name: test
+    task:
+      jobs:
+        - name: rspec
           commands:
             - docker-compose exec  memory_app_back rspec
