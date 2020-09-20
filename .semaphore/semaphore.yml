@@ -13,7 +13,6 @@ blocks:
           commands:
             - checkout
             - docker-compose build
-            - docker-compose bundle install
             - docker-compose up -d
             - "docker-compose exec memory_app_back rake db:create"
             - "docker-compose exec memory_app_back rake db:migrate"
@@ -27,7 +26,6 @@ blocks:
           commands:
             - checkout
             - docker-compose build
-            - docker-compose bundle install
             - docker-compose up -d
             - "docker-compose exec memory_app_back rake db:create"
             - "docker-compose exec memory_app_back rake db:migrate"
