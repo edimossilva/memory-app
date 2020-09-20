@@ -5,15 +5,42 @@ agent:
     type: e1-standard-2
     os_image: ubuntu1804
 blocks:
-  - name: Build
+  - name: "test 1"
+    dependencies: []
     task:
       jobs:
-        - name: docker test
+        - name: docker test 1
           commands:
             - checkout
             - docker-compose build
             - docker-compose up -d
-            - 'docker-compose exec memory_app_back rake db:create'
-            - 'docker-compose exec memory_app_back rake db:migrate'
-            - docker-compose exec memory_app_back rspec
-          parallelism: 4
+            - "docker-compose exec memory_app_back rake db:create"
+            - "docker-compose exec memory_app_back rake db:migrate"
+            - docker-compose exec memory_app_back rspec spec/requests/authentication_request_spec.rb:7
+            - artifact push workflow app/coverage/.resultset.json -d result_1.json
+  - name: "test 2"
+    dependencies: []
+    task:
+      jobs:
+        - name: docker test 2
+          commands:
+            - checkout
+            - docker-compose build
+            - docker-compose up -d
+            - "docker-compose exec memory_app_back rake db:create"
+            - "docker-compose exec memory_app_back rake db:migrate"
+            - docker-compose exec memory_app_back rspec spec/requests/authentication_request_spec.rb:33
+            - artifact push workflow app/coverage/.resultset.json -d result_2.json
+  - name: merge tests
+    dependencies: ["test 1", "test 2"]
+    task:
+      jobs:
+        - name: merge tests
+          commands:
+            - checkout
+            - artifact pull workflow result_1.json -d app/cov/input/result_1.json
+            - artifact pull workflow result_2.json -d app/cov/input/result_2.json
+            - docker-compose build
+            - docker-compose up -d
+            - docker-compose exec memory_app_back rake coverage:report
+            - artifact push workflow app/coverage/.resultset.json
