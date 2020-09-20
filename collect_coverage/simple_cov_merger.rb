@@ -16,7 +16,7 @@ class SimpleCovMerger
     require "json"
     require "pry"
 
-    SimpleCov::filters =[]
+    SimpleCov::filters = []
 
     results = resultsets.map do |file|
       hash_result = JSON.parse(clean(File.read(file)))
@@ -36,7 +36,6 @@ class SimpleCovMerger
   end
 
   def clean(results)
-    # binding.pry
     results.gsub(ci_project_path, project_path)
   end
 end

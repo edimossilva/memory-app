@@ -40,7 +40,5 @@ blocks:
             - checkout
             - artifact pull workflow result_1.json -d collect_coverage/input/resultset-1.json
             - artifact pull workflow result_2.json -d collect_coverage/input/resultset-2.json
-            - docker-compose build
-            - docker-compose up -d
-            - docker-compose exec memory_app_back rake coverage:report
-            - artifact push workflow app/coverage/.resultset.json
+            - cd collect_coverage
+            - ruby simple_cov_merger.rb
