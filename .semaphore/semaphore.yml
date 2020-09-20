@@ -38,8 +38,8 @@ blocks:
         - name: merge tests
           commands:
             - checkout
-            - artifact pull workflow result_1.json -d app/cov/input/result_1.json
-            - artifact pull workflow result_2.json -d app/cov/input/result_2.json
+            - artifact pull workflow result_1.json -d collect_coverage/input/resultset-1.json
+            - artifact pull workflow result_2.json -d collect_coverage/input/resultset-2.json
             - docker-compose build
             - docker-compose up -d
             - docker-compose exec memory_app_back rake coverage:report
