@@ -13,5 +13,5 @@ COPY ./app/Gemfile /app/Gemfile
 COPY ./app/Gemfile.lock /app/Gemfile.lock
 RUN bundle install
 
-# docker build -t edimossilva/memory_app_rails
+# docker build . -t edimossilva/memory_app_rails
 # docker push edimossilva/memory_app_rails
