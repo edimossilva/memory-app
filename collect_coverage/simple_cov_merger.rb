@@ -23,8 +23,12 @@ class SimpleCovMerger
     end.flatten
 
     result = SimpleCov::ResultMerger.merge_results(*results)
-    puts result.covered_percent
-
+    coverage = result.covered_percent
+    if coverage < 90
+      raise "Current coverage is #{coverage}%, but should be at least 70"
+    else
+      puts "Current coverage is #{coverage}%"
+    end
     SimpleCov::ResultMerger.store_result(result)
   end
 
