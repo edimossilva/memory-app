@@ -9,7 +9,7 @@ blocks:
     dependencies: []
     task:
       jobs:
-        - name: docker test 1
+        - name: rspec 1
           commands:
             - checkout
             - docker-compose build
@@ -22,7 +22,7 @@ blocks:
     dependencies: []
     task:
       jobs:
-        - name: docker test 2
+        - name: rspec 2
           commands:
             - checkout
             - docker-compose build
@@ -32,7 +32,7 @@ blocks:
             - docker-compose exec memory_app_back rspec spec/models/memory_spec.rb
             - artifact push workflow app/coverage/.resultset.json -d result_2.json
   - name: merge tests
-    dependencies: ["test 1", "test 2"]
+    dependencies: ["rspec 1", "rspec 2"]
     task:
       jobs:
         - name: merge tests
