@@ -168,6 +168,10 @@ GEM
     rb-inotify (0.10.1)
       ffi (~> 1.0)
     rexml (3.2.4)
+    rspec (3.9.0)
+      rspec-core (~> 3.9.0)
+      rspec-expectations (~> 3.9.0)
+      rspec-mocks (~> 3.9.0)
     rspec-core (3.9.1)
       rspec-support (~> 3.9.1)
     rspec-expectations (3.9.0)
@@ -243,6 +247,7 @@ DEPENDENCIES
   pundit
   rack-cors
   rails (~> 6.0.0)
+  rspec
   rspec-rails (~> 4.0.0.beta)
   rubocop
   shoulda-matchers
@@ -252,7 +257,7 @@ DEPENDENCIES
   tzinfo-data
 
 RUBY VERSION
-   ruby 2.7.0p0
+   ruby 2.7.1p83
 
 BUNDLED WITH
    2.1.4

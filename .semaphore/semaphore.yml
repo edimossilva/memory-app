@@ -16,7 +16,7 @@ blocks:
             - docker-compose up -d
             - "docker-compose exec memory_app_back rake db:create"
             - "docker-compose exec memory_app_back rake db:migrate"
-            - docker-compose exec memory_app_back rspec spec/models/user_spec.rb
+            - docker-compose exec memory_app_back rake spec:sliced[0,2]
             - artifact push workflow app/coverage/.resultset.json -d result_1.json
   - name: "rspec 2"
     dependencies: []
@@ -29,7 +29,7 @@ blocks:
             - docker-compose up -d
             - "docker-compose exec memory_app_back rake db:create"
             - "docker-compose exec memory_app_back rake db:migrate"
-            - docker-compose exec memory_app_back rspec spec/models/memory_spec.rb
+            - docker-compose exec memory_app_back rake spec:sliced[1,2]
             - artifact push workflow app/coverage/.resultset.json -d result_2.json
   - name: merge tests
     dependencies: ["rspec 1", "rspec 2"]
