@@ -24,6 +24,8 @@ class SimpleCovMerger
     end.flatten
 
     result = SimpleCov::ResultMerger.merge_results(*results)
+    puts result.covered_percent
+
     SimpleCov::ResultMerger.store_result(result)
   end
 

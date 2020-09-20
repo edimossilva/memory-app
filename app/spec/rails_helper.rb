@@ -13,8 +13,9 @@ require 'faker'
 
 # coverage
 require 'simplecov'
-SimpleCov.start
-
+SimpleCov.start do
+  add_filter "spec"
+end
 include Auth::JsonWebTokenHelper
 include JsonResponseHelper
 # Requires supporting ruby files with custom matchers and macros, etc, in
