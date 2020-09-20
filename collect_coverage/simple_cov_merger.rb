@@ -29,7 +29,7 @@ class SimpleCovMerger
       puts "Current coverage is #{coverage}%, but should be at least #{coverage_threshould}%"
       exit(1)
     else
-      puts "Current coverage is #{coverage}%"
+      puts "Current coverage is #{coverage}%, threshould is #{coverage_threshould}"
     end
     SimpleCov::ResultMerger.store_result(result)
   end
