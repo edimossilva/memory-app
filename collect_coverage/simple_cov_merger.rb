@@ -14,7 +14,6 @@ class SimpleCovMerger
   def merge_results
     require "simplecov"
     require "json"
-    require "pry"
 
     SimpleCov::filters = []
 
