@@ -27,7 +27,7 @@ class SimpleCovMerger
     coverage_threshould = 90
     if coverage < coverage_threshould
       puts "Current coverage is #{coverage}%, but should be at least #{coverage_threshould}%"
-      return false
+      exit(1)
     else
       puts "Current coverage is #{coverage}%"
     end
