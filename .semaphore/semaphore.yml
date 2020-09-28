@@ -38,7 +38,8 @@ blocks:
         - name: merge tests
           commands:
             - checkout
-            - gem install simplecov json
+            - gem install simplecov -v 0.17
+            - gem install json
             - artifact pull workflow result_1.json -d collect_coverage/input/resultset-1.json
             - artifact pull workflow result_2.json -d collect_coverage/input/resultset-2.json
             - cd collect_coverage
