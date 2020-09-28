@@ -43,9 +43,12 @@ blocks:
             - artifact pull workflow result_1.json -d collect_coverage/input/resultset-1.json
             - artifact pull workflow result_2.json -d collect_coverage/input/resultset-2.json
             - cd collect_coverage
+            - ruby simple_cov_merger.rb
+            - mv coverage ../
+            - cd ..
+            - sed -i 's+./../app+app+g' coverage/.resultset.json
             - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
             - chmod +x ./cc-test-reporter
             - ./cc-test-reporter before-build
-            - ruby simple_cov_merger.rb
             - ./cc-test-reporter after-build --exit-code 0 -t simplecov -r d341aee07bf1ff51e397e80382d5ff14905e9f9b620ec5562094a9662f279755 -p ./app
 # path on result like ./app/app
