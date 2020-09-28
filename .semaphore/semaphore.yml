@@ -5,7 +5,7 @@ agent:
     type: e1-standard-2
     os_image: ubuntu1804
 blocks:
-  - name: rspec 1/2
+  - name: "rspec 1/2"
     dependencies: []
     task:
       jobs:
@@ -14,11 +14,11 @@ blocks:
             - checkout
             - docker-compose build
             - docker-compose up -d
-            - 'docker-compose exec memory_app_back rake db:create'
-            - 'docker-compose exec memory_app_back rake db:migrate'
-            - 'docker-compose exec memory_app_back rake spec:sliced[0,2]'
+            - "docker-compose exec memory_app_back rake db:create"
+            - "docker-compose exec memory_app_back rake db:migrate"
+            - docker-compose exec memory_app_back rake spec:sliced[0,2]
             - artifact push workflow app/coverage/.resultset.json -d result_1.json
-  - name: rspec 2/2
+  - name: "rspec 2/2"
     dependencies: []
     task:
       jobs:
@@ -27,14 +27,12 @@ blocks:
             - checkout
             - docker-compose build
             - docker-compose up -d
-            - 'docker-compose exec memory_app_back rake db:create'
-            - 'docker-compose exec memory_app_back rake db:migrate'
-            - 'docker-compose exec memory_app_back rake spec:sliced[1,2]'
+            - "docker-compose exec memory_app_back rake db:create"
+            - "docker-compose exec memory_app_back rake db:migrate"
+            - docker-compose exec memory_app_back rake spec:sliced[1,2]
             - artifact push workflow app/coverage/.resultset.json -d result_2.json
   - name: merge tests
-    dependencies:
-      - rspec 1/2
-      - rspec 2/2
+    dependencies: ["rspec 1/2", "rspec 2/2"]
     task:
       jobs:
         - name: merge tests
