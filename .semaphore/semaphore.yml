@@ -48,3 +48,4 @@ blocks:
             - ./cc-test-reporter before-build
             - ruby simple_cov_merger.rb
             - ./cc-test-reporter after-build --exit-code 0 -t simplecov -r d341aee07bf1ff51e397e80382d5ff14905e9f9b620ec5562094a9662f279755 -p ./app
+# path on result like ./app/app
