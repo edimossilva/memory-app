@@ -9,6 +9,7 @@ services:
     environment:
       POSTGRES_PASSWORD: "postgres"
       POSTGRES_HOST_AUTH_METHOD: "trust"
+      CC_TEST_REPORTER_ID: d341aee07bf1ff51e397e80382d5ff14905e9f9b620ec5562094a9662f279755
     ports:
       - "5444:5432"
 
@@ -34,3 +35,5 @@ volumes:
 # docker-compose exec memory_app_back rake db:create
 # docker-compose exec  memory_app_back rake db:migrate
 # docker-compose exec  memory_app_back rspec
+# exitcode=$(if [ "$SEMAPHORE_THREAD_RESULT" == "passed" ]; then echo 0; else echo 1; fi)
+# ./cc-test-reporter after-build --exit-code $exitcode
