@@ -32,7 +32,5 @@ volumes:
 # docker-compose build
 # docker-compose up -d
 # docker-compose exec memory_app_back rake db:create
-# docker-compose exec  memory_app_back rake db:migrate
-# docker-compose exec  memory_app_back rspec
-# exitcode=$(if [ "$SEMAPHORE_THREAD_RESULT" == "passed" ]; then echo 0; else echo 1; fi)
-# ./cc-test-reporter after-build --exit-code $exitcode
+# docker-compose exec memory_app_back rake db:migrate
+# docker-compose exec memory_app_back rspec
