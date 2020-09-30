@@ -13,8 +13,4 @@ class User < ApplicationRecord
   def access_level?
     registred? || admin?
   end
-
-  def fields_string
-    "User(id:#{id}, username:#{username}, accesslevel:#{access_level})"
-  end
 end
