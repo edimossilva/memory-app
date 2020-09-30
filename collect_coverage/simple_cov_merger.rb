@@ -12,10 +12,10 @@ class SimpleCovMerger
   end
 
   def merge_results
-    require "simplecov"
-    require "json"
+    require 'simplecov'
+    require 'json'
 
-    SimpleCov::filters = []
+    SimpleCov.filters = []
 
     results = resultsets.map do |file|
       hash_result = JSON.parse(clean(File.read(file)))
@@ -24,13 +24,8 @@ class SimpleCovMerger
 
     result = SimpleCov::ResultMerger.merge_results(*results)
     coverage = result.covered_percent
-    coverage_threshould = 85
-    if coverage < coverage_threshould
-      puts "Current coverage is #{coverage}%, but should be at least #{coverage_threshould}%"
-      exit(1)
-    else
-      puts "Current coverage is #{coverage}%, threshould is #{coverage_threshould}"
-    end
+    puts "Current coverage is #{coverage}%"
+
     SimpleCov::ResultMerger.store_result(result)
   end
 
@@ -45,4 +40,4 @@ class SimpleCovMerger
   end
 end
 
-SimpleCovMerger.report_coverage(base_dir: "./input", ci_project_path: "/app/app", project_path: "./../app/app")
+SimpleCovMerger.report_coverage(base_dir: './input', ci_project_path: '/app/app', project_path: './../app/app')
