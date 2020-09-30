@@ -7,7 +7,7 @@ RSpec.describe 'Authentications', type: :request do
     context 'When receive matching username and password' do
       before { post '/auth/login', params: { username: user.username, password: user.password } }
 
-      it { expect(response).to have_http_status(:not_found) }
+      it { expect(response).to have_http_status(:ok) }
 
       it "responds with user's username" do
         json_response = JSON.parse(response.body)
