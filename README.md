@@ -22,7 +22,7 @@
 
    `http://localhost:3333`
 
-1. Semaphore
+1. Semaphore (parallel tests)
 
     [![Build Status](https://edimossilva.semaphoreci.com/badges/memory-app-rails/branches/master.svg?style=shields)](https://edimossilva.semaphoreci.com/projects/memory-app-rails)
 
