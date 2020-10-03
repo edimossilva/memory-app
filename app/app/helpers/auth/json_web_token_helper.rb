@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Auth
   module JsonWebTokenHelper
     SECRET_KEY = Rails.application.credentials.jwt[:secret_key]
