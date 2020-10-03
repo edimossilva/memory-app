@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
 class Memory < ApplicationRecord
-  validates_presence_of :key, :value
-  validates_uniqueness_of :key, case_sensitive: false
+  validates :key, :value, presence: true
+  validates :key, uniqueness: { case_sensitive: false }
 end
