@@ -39,7 +39,6 @@ blocks:
           commands:
             - checkout
             - cd app
-            - gem install rubocop
             - gem install rubocop-rails
             - rubocop
   - name: merge tests
