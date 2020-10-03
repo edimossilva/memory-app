@@ -46,6 +46,30 @@ RSpec.describe 'Memory', type: :request do
     end
   end
 
+  context '#destroy' do
+    let!(:memory) { create(:memory) }
+
+    describe 'When find memory' do
+      before(:each) do
+        delete("/memories/#{memory.id}")
+      end
+
+      it { expect(response).to have_http_status(:no_content) }
+    end
+
+    describe 'When not find memory' do
+      before(:each) do
+        delete('/memories/999')
+      end
+
+      it { expect(response).to have_http_status(:not_found) }
+
+      it 'return error message related to not found' do
+        expect(json_response_error).to eq("Couldn't find Memory")
+      end
+    end
+  end
+
   context '#index' do
     before(:each) do
       create_list(:memory, 3)
