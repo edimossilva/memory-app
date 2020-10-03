@@ -1,0 +1,7 @@
+FROM edimossilva/memory_app_rails
+
+COPY ./app /app
+
+RUN bundle install
+
+CMD bundle exec puma -C config/puma.rb
