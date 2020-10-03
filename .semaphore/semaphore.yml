@@ -32,15 +32,15 @@ blocks:
             - docker-compose exec memory_app_back rake spec:sliced[1,2]
             - artifact push workflow app/coverage/.resultset.json -d result_2.json
   - name: "rubocop lint"
-  dependencies: []
-  task:
-    jobs:
-      - name: rubocop lint
-        commands:
-          - checkout
-          - cd app
-          - gem install rubocop
-          - rubocop
+    dependencies: []
+    task:
+      jobs:
+        - name: rubocop lint
+          commands:
+            - checkout
+            - cd app
+            - gem install rubocop
+            - rubocop
   - name: merge tests
     dependencies: ["rspec 1/2", "rspec 2/2"]
     task:
