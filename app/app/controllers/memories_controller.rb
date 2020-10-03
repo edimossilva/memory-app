@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class MemoriesController < ApplicationController
-  before_action :authorize_request, except: %i[create index]
+  before_action :authorize_request, except: %i[create index update]
 
   def create
     memory = Memory.create!(create_params)
@@ -12,9 +12,20 @@ class MemoriesController < ApplicationController
     render_ok(Memory.all)
   end
 
+  def update
+    memory = Memory.find_by!(search_params)
+    memory.update!(update_params)
+
+    render_ok(memory)
+  end
+
   private
 
   def create_params
+    params.permit(:key, :value, :visibility)
+  end
+
+  def update_params
     params.permit(:key, :value, :visibility)
   end
 end

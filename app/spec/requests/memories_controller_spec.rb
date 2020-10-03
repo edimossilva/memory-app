@@ -58,4 +58,62 @@ RSpec.describe 'Memory', type: :request do
       expect(json_response_data.count).to eq(3)
     end
   end
+
+  context '#update' do
+    let!(:memory) { create(:memory, key: 'key', value: 'value', visibility: 'false') }
+
+    describe 'When data is valid' do
+      let!(:update_memory_params) do
+        {
+          'key' => 'new_key',
+          'value' => 'new_value',
+          'visibility' => 'true'
+        }
+      end
+
+      before(:each) do
+        put("/memories/#{memory.id}", params: update_memory_params)
+      end
+
+      it { expect(response).to have_http_status(:ok) }
+
+      it 'updates fields' do
+        expect(json_response_data['key']).to eq('new_key')
+        expect(json_response_data['value']).to eq('new_value')
+        expect(json_response_data['visibility']).to eq(true)
+      end
+    end
+
+    describe 'When data is invalid' do
+      let!(:update_memory_params) do
+        {
+          'key' => 'new_key',
+          'value' => '',
+          'visibility' => 'true'
+        }
+      end
+
+      before(:each) do
+        put("/memories/#{memory.id}", params: update_memory_params)
+      end
+
+      it { expect(response).to have_http_status(:unprocessable_entity) }
+
+      it 'return error message related to value' do
+        expect(json_response_error).to eq("Validation failed: Value can't be blank")
+      end
+    end
+
+    describe 'When not find item' do
+      before(:each) do
+        put('/memories/999')
+      end
+
+      it { expect(response).to have_http_status(:not_found) }
+
+      it 'return error message related to value' do
+        expect(json_response_error).to eq("Couldn't find Memory")
+      end
+    end
+  end
 end
