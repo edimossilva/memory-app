@@ -40,9 +40,10 @@ blocks:
             - checkout
             - cd app
             - gem install rubocop
+            - gem install rubocop-rails
             - rubocop
   - name: merge tests
-    dependencies: ["rspec 1/2", "rspec 2/2"]
+    dependencies: ["rspec 1/2", "rspec 2/2", "rubocop lint"]
     task:
       jobs:
         - name: merge tests
