@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class MemoriesController < ApplicationController
-  before_action :authorize_request, except: %i[create destroy index update]
+  before_action :authorize_request
 
   def create
     memory = Memory.create!(create_params)
