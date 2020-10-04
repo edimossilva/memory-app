@@ -5,6 +5,8 @@ require 'rails_helper'
 RSpec.describe 'Memory', type: :request do
   let!(:registred_user) { create(:user, :registred) }
   let!(:registred_headers) { header_for_user(registred_user) }
+  let!(:user2) { create(:user) }
+  let!(:registred_headers2) { header_for_user(user2) }
 
   context '#create' do
     context 'when data is valid' do
@@ -52,7 +54,7 @@ RSpec.describe 'Memory', type: :request do
   end
 
   context '#destroy' do
-    let!(:memory) { create(:memory) }
+    let!(:memory) { create(:memory, user: registred_user) }
 
     describe 'When find memory' do
       before(:each) do
@@ -73,23 +75,32 @@ RSpec.describe 'Memory', type: :request do
         expect(json_response_error).to eq("Couldn't find Memory")
       end
     end
+
+    describe 'When is not owner' do
+      before(:each) do
+        delete("/memories/#{memory.id}", headers: registred_headers2)
+      end
+
+      it { expect(response).to have_http_status(:unauthorized) }
+    end
   end
 
   context '#index' do
     before(:each) do
       create_list(:memory, 3)
+      create_list(:memory, 2, user: registred_user)
       get('/memories', headers: registred_headers)
     end
 
     it { expect(response).to have_http_status(:ok) }
 
-    it 'contains all items' do
-      expect(json_response_data.count).to eq(3)
+    it 'contains all user memories' do
+      expect(json_response_data.count).to eq(2)
     end
   end
 
   context '#update' do
-    let!(:memory) { create(:memory, key: 'key', value: 'value', visibility: 'false') }
+    let!(:memory) { create(:memory, user: registred_user, key: 'key', value: 'value', visibility: 'false') }
 
     describe 'When data is valid' do
       let!(:update_memory_params) do
@@ -142,6 +153,18 @@ RSpec.describe 'Memory', type: :request do
 
       it 'return error message related to value' do
         expect(json_response_error).to eq("Couldn't find Memory")
+      end
+    end
+
+    describe 'When memory not belongs to user' do
+      before(:each) do
+        put("/memories/#{memory.id}", headers: registred_headers2)
+      end
+
+      it { expect(response).to have_http_status(:unauthorized) }
+
+      it 'return error message related to value' do
+        expect(json_response_error).to eq("not allowed to owner? this Memory")
       end
     end
   end

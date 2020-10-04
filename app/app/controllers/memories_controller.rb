@@ -12,15 +12,20 @@ class MemoriesController < ApplicationController
     memory = Memory.find_by!(search_params)
     memory.destroy!
 
+    authorize memory, :owner?
+
     render_destroyed
   end
 
   def index
-    render_ok(Memory.all)
+    render_ok(Memory.where(user: current_user))
   end
 
   def update
     memory = Memory.find_by!(search_params)
+
+    authorize memory, :owner?
+
     memory.update!(update_params)
 
     render_ok(memory)
@@ -30,6 +35,7 @@ class MemoriesController < ApplicationController
 
   def create_params
     params.permit(:key, :value, :visibility)
+          .merge(user_id: current_user.id)
   end
 
   def update_params
