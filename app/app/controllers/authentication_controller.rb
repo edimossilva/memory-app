@@ -7,15 +7,7 @@ class AuthenticationController < ApplicationController
     user = User.find_by(username: login_params[:username])
 
     if user&.authenticate(login_params[:password])
-      token = encode_user(user)
-      time = Time.zone.now + 24.hours.to_i
-      json = {
-        token: token,
-        exp: time.strftime('%m-%d-%Y %H:%M'),
-        username: user.username,
-        userId: user.id,
-        accessLevel: user.access_level
-      }
+      json = user_to_auth_json(user)
       render json: json, status: :ok
     else
       render_unauthorized

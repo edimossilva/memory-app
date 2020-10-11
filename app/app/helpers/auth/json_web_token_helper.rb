@@ -4,6 +4,18 @@ module Auth
   module JsonWebTokenHelper
     SECRET_KEY = Rails.application.credentials.jwt[:secret_key]
 
+    def user_to_auth_json(user)
+      token = encode_user(user)
+      time = Time.zone.now + 24.hours.to_i
+      {
+        token: token,
+        exp: time.strftime('%m-%d-%Y %H:%M'),
+        username: user.username,
+        userId: user.id,
+        accessLevel: user.access_level
+      }
+    end
+
     def encode_user(user, exp = 24.hours.from_now)
       payload = {}
       payload[:exp] = exp.to_i
