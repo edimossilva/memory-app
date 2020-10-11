@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class AuthenticationController < ApplicationController
-  before_action :authorize_request, except: :login
-  # POST /auth/login
+  before_action :authorize_request, except: %i[login sign_up]
+
   def login
     user = User.find_by(username: login_params[:username])
 
@@ -12,6 +12,10 @@ class AuthenticationController < ApplicationController
     else
       render_unauthorized
     end
+  end
+
+  def sign_up
+    redirect_to '/auth/google_oauth2'
   end
 
   private
