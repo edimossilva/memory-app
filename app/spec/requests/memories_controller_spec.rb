@@ -82,6 +82,7 @@ RSpec.describe 'Memory', type: :request do
       end
 
       it { expect(response).to have_http_status(:unauthorized) }
+      it { expect(memory.reload).to_not be_nil }
     end
   end
 

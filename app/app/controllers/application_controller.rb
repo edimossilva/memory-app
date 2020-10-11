@@ -15,7 +15,7 @@ class ApplicationController < ActionController::Base
   end
 
   def render_destroyed
-    render status: :no_content
+    render json: {}, status: :no_content
   end
 
   def render_not_found(exception)

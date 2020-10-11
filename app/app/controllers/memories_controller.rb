@@ -10,9 +10,10 @@ class MemoriesController < ApplicationController
 
   def destroy
     memory = Memory.find_by!(search_params)
-    memory.destroy!
 
     authorize memory, :owner?
+
+    memory.destroy!
 
     render_destroyed
   end
