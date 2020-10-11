@@ -49,4 +49,12 @@ RSpec.describe 'Authentications', type: :request do
       end
     end
   end
+
+  describe '#sign_up' do
+    subject { get '/auth/sign_up' }
+
+    it "redirects to google_oauth2" do
+      expect(subject).to redirect_to('/auth/google_oauth2')
+    end
+  end
 end
