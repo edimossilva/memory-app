@@ -22,8 +22,10 @@ services:
     environment:
       RUBYOPT: "-W:no-deprecated -W:no-experimental"
       RAILS_MASTER_KEY: "a667717bf0a47475b0582547379c816d"
+    env_file:
+      - .env
     tty: true
-    command: rails server -b 0
+    command: sh
     ports:
       - "3333:3000"
 

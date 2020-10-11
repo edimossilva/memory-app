@@ -13,4 +13,11 @@ class User < ApplicationRecord
   def owner?(entity)
     entity.user == self
   end
+
+  def self.from_omniauth(auth)
+    where(email: auth.info.email).first_or_initialize do |user|
+      user.username = auth.info.email
+      user.password = SecureRandom.hex
+    end
+  end
 end
