@@ -12,6 +12,7 @@ blocks:
         - name: rspec 1/2
           commands:
             - checkout
+            - touch .env
             - echo $HEROKU_API_KEY
             - docker-compose build
             - docker-compose up -d
@@ -28,6 +29,7 @@ blocks:
         - name: rspec 2/2
           commands:
             - checkout
+            - touch .env
             - docker-compose build
             - docker-compose up -d
             - 'docker-compose exec memory_app_back rake db:create'
