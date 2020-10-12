@@ -37,10 +37,11 @@ module MemoryApp
     config.session_store :cookie_store, key: '_interslice_session'
     config.middleware.use ActionDispatch::Cookies # Required for all session management
     config.middleware.use ActionDispatch::Session::CookieStore, config.session_options
-
+    config.action_controller.forgery_protection_origin_check = false
     config.generators do |g|
       g.test_framework :rspec, fixture: false
     end
     config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}')]
+    Pry.pager = false
   end
 end

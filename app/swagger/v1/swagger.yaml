@@ -1,0 +1,49 @@
+---
+openapi: 3.0.1
+components:
+  securitySchemes:
+    ApiKeyAuth:        # arbitrary name for the security scheme
+      type: apiKey
+      in: header       # can be "header", "query" or "cookie"
+      name: Authorization
+security:
+  - ApiKeyAuth: []
+info:
+  title: API V1
+  version: v1
+paths:
+  "/memories":
+    post:
+      summary: Creates a memory
+      tags:
+      - Memories
+      parameters:
+      - name: X-Token
+        in: header
+        schema:
+          type: string
+      responses:
+        '201':
+          description: memory created
+          content: {}
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                key:
+                  type: string
+                  value: phone
+                value:
+                  type: string
+                  value: phone
+                visibility: boolean
+              required:
+              - key
+              - value
+servers:
+- url: http://localhost:3000
+  variables:
+    defaultHost:
+      default: www.example.com
