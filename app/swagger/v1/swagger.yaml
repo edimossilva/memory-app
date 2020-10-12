@@ -14,18 +14,37 @@ info:
 paths:
   "/memories":
     post:
-      summary: Creates a memory
+      summary: Needs Authorization header from /auth/login
       tags:
       - Memories
       parameters:
-      - name: X-Token
+      - name: Authorization
         in: header
         schema:
           type: string
       responses:
-        '201':
+        '200':
           description: memory created
-          content: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    description: The memory ID.
+                  user_id:
+                    type: integer
+                    description: The memory owner ID.
+                  key:
+                    type: string
+                    description: The memory key.
+                  value:
+                    type: string
+                    description: The memory value.
+                  visibility:
+                    type: boolean
+                    description: The memory visibility.
       requestBody:
         content:
           application/json:
@@ -34,16 +53,13 @@ paths:
               properties:
                 key:
                   type: string
-                  value: phone
                 value:
                   type: string
-                  value: phone
-                visibility: boolean
+                visibility:
+                  type: boolean
               required:
               - key
               - value
 servers:
 - url: http://localhost:3000
-  variables:
-    defaultHost:
-      default: www.example.com
+- url: https://memory-app-back.herokuapp.com
