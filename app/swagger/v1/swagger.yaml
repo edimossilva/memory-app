@@ -51,11 +51,6 @@ paths:
       summary: Return all Memories - Needs Authorization header from /auth/login
       tags:
         - Memories
-      parameters:
-        - name: Authorization
-          in: header
-          schema:
-            type: string
       responses:
         '200':
           description: token generated
@@ -80,11 +75,6 @@ paths:
       summary: Create Memory - Needs Authorization header from /auth/login
       tags:
         - Memories
-      parameters:
-        - name: Authorization
-          in: header
-          schema:
-            type: string
       responses:
         '201':
           description: token generated
@@ -126,10 +116,6 @@ paths:
           schema:
             type: integer
           required: true
-        - name: Authorization
-          in: header
-          schema:
-            type: string
       responses:
         '200':
           description: token generated
@@ -170,10 +156,6 @@ paths:
           schema:
             type: integer
           required: true
-        - name: Authorization
-          in: header
-          schema:
-            type: string
       responses:
         '204':
           description: token generated
