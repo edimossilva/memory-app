@@ -6,6 +6,7 @@ components:
       type: apiKey
       in: header
       name: Authorization
+
   schemas:
     MemoryResponse:
       type: object
@@ -51,6 +52,7 @@ components:
           type: string
 security:
   - ApiKeyAuth: []
+
 info:
   title: Memory app
   version: v1
@@ -73,6 +75,20 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/AuthData'
+  '/auth/sign_up':
+    get:
+      summary: Google Auth
+      description: This one you can't reproduce, just copy and paste url on browser
+      tags:
+        - Login
+      responses:
+        '200':
+          description: Login authorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthUser'
+
 
   '/memories':
     get:
