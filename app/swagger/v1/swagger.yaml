@@ -2,14 +2,57 @@
 openapi: 3.0.1
 components:
   securitySchemes:
-    ApiKeyAuth: # arbitrary name for the security scheme
+    ApiKeyAuth:
       type: apiKey
-      in: header # can be "header", "query" or "cookie"
+      in: header
       name: Authorization
+  schemas:
+    MemoryResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+        user_id:
+          type: integer
+        key:
+          type: string
+        value:
+          type: string
+        visibility:
+          type: boolean
+    MemoryData:
+      type: object
+      properties:
+        key:
+          type: string
+        value:
+          type: string
+        visibility:
+          type: boolean
+    AuthUser:
+      type: object
+      properties:
+        token:
+          type: string
+        exp:
+          type: string
+        username:
+          type: string
+        userId:
+          type: string
+        accessLevel:
+          type: boolean
+    AuthData:
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
 security:
   - ApiKeyAuth: []
 info:
-  title: API V1
+  title: Memory app
   version: v1
 paths:
   '/auth/login':
@@ -23,28 +66,13 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  token:
-                    type: string
-                  exp:
-                    type: string
-                  username:
-                    type: string
-                  userId:
-                    type: string
-                  accessLevel:
-                    type: boolean
+                $ref: '#/components/schemas/AuthUser'
+
       requestBody:
         content:
           application/json:
             schema:
-              type: object
-              properties:
-                username:
-                  type: string
-                password:
-                  type: string
+              $ref: '#/components/schemas/AuthData'
 
   '/memories':
     get:
@@ -59,52 +87,24 @@ paths:
               schema:
                 type: array
                 items:
-                  type: object
-                  properties:
-                    id:
-                      type: integer
-                    user_id:
-                      type: integer
-                    key:
-                      type: string
-                    value:
-                      type: string
-                    visibility:
-                      type: boolean
+                  $ref: '#/components/schemas/MemoryResponse'
     post:
       summary: Create Memory
       tags:
         - Memories
       responses:
         '201':
-          description: token generated
+          description: Memory created
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  id:
-                    type: integer
-                  user_id:
-                    type: integer
-                  key:
-                    type: string
-                  value:
-                    type: string
-                  visibility:
-                    type: boolean
+                $ref: '#/components/schemas/MemoryResponse'
       requestBody:
         content:
           application/json:
             schema:
-              type: object
-              properties:
-                key:
-                  type: string
-                value:
-                  type: string
-                visibility:
-                  type: boolean
+              $ref: '#/components/schemas/MemoryData'
+
   '/memories/{memoryId}':
     put:
       summary: Update Memory
@@ -118,34 +118,17 @@ paths:
           required: true
       responses:
         '200':
-          description: token generated
+          description: Memory updated
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  id:
-                    type: integer
-                  user_id:
-                    type: integer
-                  key:
-                    type: string
-                  value:
-                    type: string
-                  visibility:
-                    type: boolean
+                $ref: '#/components/schemas/MemoryResponse'
       requestBody:
         content:
           application/json:
             schema:
-              type: object
-              properties:
-                key:
-                  type: string
-                value:
-                  type: string
-                visibility:
-                  type: boolean
+              $ref: '#/components/schemas/MemoryData'
+
     delete:
       summary: Delete Memory
       tags:
@@ -158,7 +141,8 @@ paths:
           required: true
       responses:
         '204':
-          description: token generated
+          description: Memory deleted
 servers:
   - url: https://memory-app-back.herokuapp.com
   - url: http://localhost:3000
+
