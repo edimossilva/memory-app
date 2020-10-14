@@ -1,18 +1,12 @@
-# install
+# Read Me
 
-1. build containers
-
-   `docker-compose build`
-
-1. start containers in background
+1. start containers in background (only use images)
 
    `docker-compose up -d`
 
 1. config db
 
-   `docker-compose exec memory_app_back rake db:create`
-
-   `docker-compose exec memory_app_back rake db:migrate`
+   `docker-compose exec memory_app_back rake db:create rake db:migrate`
 
 1. tests
 
@@ -20,7 +14,7 @@
 
 1. access
 
-   `http://localhost:3333`
+   `http://localhost:3000`
 
 1. Semaphore (parallel tests / lint)
 
@@ -41,3 +35,7 @@
 1. Swagger
 
    https://memory-app-back.herokuapp.com/api-docs/index.html
+
+1. Docker image
+
+   https://hub.docker.com/repository/docker/edimossilva/memory_app_rails
