@@ -18,6 +18,10 @@ class AuthenticationController < ApplicationController
     redirect_to '/auth/google_oauth2'
   end
 
+  def check
+    render json: user_to_auth_json(@current_user)
+  end
+
   private
 
   def login_params

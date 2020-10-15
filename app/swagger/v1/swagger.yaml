@@ -76,6 +76,22 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/AuthData'
+
+  '/auth/check':
+    get:
+      summary: Check token
+      tags:
+        - Login
+      responses:
+        '200':
+          description: Login authorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthUser'
+        '401':
+          description: Login authorized
+
   '/auth/sign_up':
     get:
       summary: Google Auth
@@ -89,7 +105,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AuthUser'
-
 
   '/memories':
     get:
