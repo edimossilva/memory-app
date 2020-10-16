@@ -60,7 +60,7 @@ paths:
   '/auth/login':
     post:
       summary: Authorization
-      description: "example data: username:registered_user1, password:111"
+      description: "example data: username: registered_user1, password:111"
       tags:
         - Login
       responses:
@@ -160,7 +160,23 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/MemoryData'
-
+    get:
+      summary: Find Memory
+      tags:
+        - Memories
+      parameters:
+        - in: path
+          name: memoryId
+          schema:
+            type: integer
+          required: true
+      responses:
+        '200':
+          description: Memory updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MemoryResponse'
     delete:
       summary: Delete Memory
       tags:

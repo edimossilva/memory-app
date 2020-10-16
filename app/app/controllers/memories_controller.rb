@@ -22,6 +22,14 @@ class MemoriesController < ApplicationController
     render_ok(Memory.where(user: current_user))
   end
 
+  def show
+    memory = Memory.find_by!(search_params)
+
+    authorize memory, :owner?
+
+    render_ok(memory)
+  end
+
   def update
     memory = Memory.find_by!(search_params)
 

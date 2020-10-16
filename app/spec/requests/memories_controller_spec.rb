@@ -86,6 +86,46 @@ RSpec.describe 'Memory', type: :request do
     end
   end
 
+  context '#find' do
+    let!(:memory) { create(:memory, user: registred_user, key: 'key', value: 'value', visibility: 'false') }
+
+    describe 'When data is valid' do
+      before(:each) do
+        get("/memories/#{memory.id}", headers: registred_headers)
+      end
+
+      it { expect(response).to have_http_status(:ok) }
+
+      it 'returns memory' do
+        expect(json_response_data['id']).to eq(memory.id)
+      end
+    end
+
+    describe 'When not find item' do
+      before(:each) do
+        put('/memories/999', headers: registred_headers)
+      end
+
+      it { expect(response).to have_http_status(:not_found) }
+
+      it 'return error message related to value' do
+        expect(json_response_error).to eq("Couldn't find Memory")
+      end
+    end
+
+    describe 'When memory not belongs to user' do
+      before(:each) do
+        put("/memories/#{memory.id}", headers: registred_headers2)
+      end
+
+      it { expect(response).to have_http_status(:unauthorized) }
+
+      it 'return error message related to value' do
+        expect(json_response_error).to eq("not allowed to owner? this Memory")
+      end
+    end
+  end
+
   context '#index' do
     before(:each) do
       create_list(:memory, 3)

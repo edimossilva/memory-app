@@ -7,5 +7,5 @@ Rails.application.routes.draw do
   get '/auth/sign_up' => 'authentication#sign_up'
   get '/auth/check' => 'authentication#check'
   get '/auth/:provider/callback' => 'sessions#omniauth'
-  resources :memories, only: %i[create index update destroy]
+  resources :memories
 end
