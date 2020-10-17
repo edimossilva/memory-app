@@ -13,7 +13,7 @@ blocks:
           commands:
             - checkout
             - touch .env
-            - echo $HEROKU_API_KEY
+            - echo $RAILS_MASTER_KEY
             - docker-compose build
             - docker-compose up -d
             - 'docker-compose exec memory_app_back rake db:create'
