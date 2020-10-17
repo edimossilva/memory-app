@@ -7,3 +7,6 @@ RUN bundle install
 RUN mkdir -p tmp/pids
 
 CMD bundle exec puma -C config/puma.rb
+
+# docker build -f Dockerfile.web -t edimossilva/memory_app_back .
+# docker push edimossilva/memory_app_back

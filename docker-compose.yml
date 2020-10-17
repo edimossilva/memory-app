@@ -5,7 +5,6 @@ services:
     container_name: db_memory_app
     volumes:
       - db_memory_app_volume:/data/postgres
-
     environment:
       POSTGRES_PASSWORD: "postgres"
       POSTGRES_HOST_AUTH_METHOD: "trust"
@@ -19,11 +18,12 @@ services:
       - ./app:/app
     depends_on:
       - db_memory_app
-    environment:
-      RUBYOPT: "-W:no-deprecated -W:no-experimental"
-      RAILS_MASTER_KEY: "a667717bf0a47475b0582547379c816d"
     env_file:
       - .env
+    environment:
+      RUBYOPT: "-W:no-deprecated -W:no-experimental"
+      DATABASE_URL: "db_memory_app"
+      RAILS_MASTER_KEY: "${RAILS_MASTER_KEY}"
     tty: true
     command: sh
     ports:
