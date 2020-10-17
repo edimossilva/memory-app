@@ -13,7 +13,6 @@ blocks:
           commands:
             - checkout
             - touch .env
-            - echo $HEROKU_API_KEY
             - docker-compose build
             - docker-compose up -d
             - 'docker-compose exec memory_app_back rake db:create'
@@ -21,7 +20,7 @@ blocks:
             - 'docker-compose exec memory_app_back rake spec:sliced[0,2]'
             - artifact push workflow app/coverage/.resultset.json -d result_1.json
       secrets:
-        - name: HEROKU_API_KEY
+        - name: RAILS_MASTER_KEY
   - name: rspec 2/2
     dependencies: []
     task:
@@ -36,6 +35,8 @@ blocks:
             - 'docker-compose exec memory_app_back rake db:migrate'
             - 'docker-compose exec memory_app_back rake spec:sliced[1,2]'
             - artifact push workflow app/coverage/.resultset.json -d result_2.json
+      secrets:
+        - name: RAILS_MASTER_KEY
   - name: rubocop lint
     dependencies: []
     task:
