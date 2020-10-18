@@ -23,8 +23,7 @@ class SimpleCovMerger
     end.flatten
 
     result = SimpleCov::ResultMerger.merge_results(*results)
-    coverage = result.covered_percent
-    puts "Current coverage is #{coverage}%"
+    puts "Current coverage is #{result.covered_percent}%"
 
     SimpleCov::ResultMerger.store_result(result)
   end
@@ -40,4 +39,8 @@ class SimpleCovMerger
   end
 end
 
-SimpleCovMerger.report_coverage(base_dir: './input', ci_project_path: '/app/app', project_path: './../app/app')
+SimpleCovMerger.report_coverage(
+  base_dir: './input',
+  ci_project_path: '/backend_rails/app',
+  project_path: './../backend_rails/app'
+)
