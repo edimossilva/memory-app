@@ -59,9 +59,9 @@ blocks:
             - rubocop
   - name: backend merge tests
     dependencies:
-      - backend rspec 1/2
-      - backend rspec 2/2
-      - backend rubocop lint
+      - backend unit 1/2
+      - backend unit 2/2
+      - backend lint
     task:
       jobs:
         - name: merge tests
