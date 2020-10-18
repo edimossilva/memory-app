@@ -1,0 +1,16 @@
+kubectl apply -f k8s/memory-pod.yaml
+kubectl apply -f k8s/memory-node-port.yaml
+
+kubectl get pods
+kubectl get services
+kubectl get deployments
+
+minikube ip
+kubectl describe pods memory-pod
+kubectl delete -f k8s/memory-pod.yml
+
+# update image -> update image with tag on dockerhub, then update image on deployment object
+kubectl set image deployment/memory-deployment memory=edimossilva/memory_app_back:v1
+
+# k8s to docker inside of minikube
+eval $(minikube docker-env)

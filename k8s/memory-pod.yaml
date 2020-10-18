@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: memory-pod
+  labels:
+    component: web
+spec:
+  containers:
+  - name: memory
+    image: edimossilva/memory_app_back:latest
+    resources:
+      limits:
+        memory: "128Mi"
+        cpu: "500m"
+    ports:
+      - containerPort: 3000
+    imagePullPolicy: Always
+
