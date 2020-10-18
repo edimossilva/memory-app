@@ -18,7 +18,7 @@ blocks:
             - 'docker-compose exec memory_app_back rake db:create'
             - 'docker-compose exec memory_app_back rake db:migrate'
             - 'docker-compose exec memory_app_back rake spec:sliced[0,2]'
-            - artifact push workflow app/coverage/.resultset.json -d result_1.json
+            - artifact push workflow backend_rails/coverage/.resultset.json -d result_1.json
       secrets:
         - name: RAILS_MASTER_KEY
   - name: rspec 2/2
@@ -34,7 +34,7 @@ blocks:
             - 'docker-compose exec memory_app_back rake db:create'
             - 'docker-compose exec memory_app_back rake db:migrate'
             - 'docker-compose exec memory_app_back rake spec:sliced[1,2]'
-            - artifact push workflow app/coverage/.resultset.json -d result_2.json
+            - artifact push workflow backend_rails/coverage/.resultset.json -d result_2.json
       secrets:
         - name: RAILS_MASTER_KEY
   - name: rubocop lint
