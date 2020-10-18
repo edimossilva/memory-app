@@ -5,11 +5,11 @@ agent:
     type: e1-standard-2
     os_image: ubuntu1804
 blocks:
-  - name: rspec 1/2
+  - name: jest unit
     dependencies: []
     task:
       jobs:
-        - name: rspec 1/2
+        - name: jest unit
           commands:
             - checkout
             - docker-compose build
