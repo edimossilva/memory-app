@@ -1,6 +1,6 @@
 FROM edimossilva/memory_app_rails
 
-COPY ./app /app
+COPY ./backend_rails /app
 
 RUN bundle install
 

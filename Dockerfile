@@ -9,8 +9,8 @@ RUN apk update \
 
 RUN gem install bundler rake
 
-COPY ./app/Gemfile /app/Gemfile
-COPY ./app/Gemfile.lock /app/Gemfile.lock
+COPY ./backend_rails/Gemfile /app/Gemfile
+COPY ./backend_rails/Gemfile.lock /app/Gemfile.lock
 RUN bundle install
 
 # docker build . -t edimossilva/memory_app_rails
