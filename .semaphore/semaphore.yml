@@ -5,7 +5,17 @@ agent:
     type: e1-standard-2
     os_image: ubuntu1804
 blocks:
-  - name: rspec 1/2
+  - name: 'Frontend Unit '
+    dependencies: []
+    task:
+      jobs:
+        - name: jest unit
+          commands:
+            - checkout
+            - docker-compose build
+            - docker-compose up -d memory_app_vue
+            - 'docker-compose exec memory_app_vue yarn test:unit'
+  - name: backend unit 1/2
     dependencies: []
     task:
       jobs:
@@ -21,7 +31,7 @@ blocks:
             - artifact push workflow backend_rails/coverage/.resultset.json -d result_1.json
       secrets:
         - name: RAILS_MASTER_KEY
-  - name: rspec 2/2
+  - name: backend unit 2/2
     dependencies: []
     task:
       jobs:
@@ -37,7 +47,7 @@ blocks:
             - artifact push workflow backend_rails/coverage/.resultset.json -d result_2.json
       secrets:
         - name: RAILS_MASTER_KEY
-  - name: rubocop lint
+  - name: backend lint
     dependencies: []
     task:
       jobs:
@@ -47,11 +57,11 @@ blocks:
             - cd backend_rails
             - gem install rubocop-rails
             - rubocop
-  - name: merge tests
+  - name: backend merge tests
     dependencies:
-      - rspec 1/2
-      - rspec 2/2
-      - rubocop lint
+      - backend unit 1/2
+      - backend unit 2/2
+      - backend lint
     task:
       jobs:
         - name: merge tests
@@ -74,9 +84,9 @@ blocks:
     skip:
       when: branch != 'master'
     dependencies:
-      - rspec 1/2
-      - rspec 2/2
-      - rubocop lint
+      - backend unit 1/2
+      - backend unit 2/2
+      - backend lint
     task:
       jobs:
         - name: deploy heroku

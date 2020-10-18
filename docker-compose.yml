@@ -1,4 +1,4 @@
-version: "3"
+version: '3'
 services:
   db_memory_app:
     image: postgres
@@ -6,10 +6,10 @@ services:
     volumes:
       - db_memory_app_volume:/data/postgres
     environment:
-      POSTGRES_PASSWORD: "postgres"
-      POSTGRES_HOST_AUTH_METHOD: "trust"
+      POSTGRES_PASSWORD: 'postgres'
+      POSTGRES_HOST_AUTH_METHOD: 'trust'
     ports:
-      - "5444:5432"
+      - '5444:5432'
 
   memory_app_back:
     image: edimossilva/memory_app_rails
@@ -21,17 +21,26 @@ services:
     env_file:
       - .env
     environment:
-      RUBYOPT: "-W:no-deprecated -W:no-experimental"
-      RAILS_MASTER_KEY: "${RAILS_MASTER_KEY}"
-      DATABASE_USERNAME: "postgres"
-      DATABASE_PASSWORD: "postgres"
-      DATABASE_HOST: "db_memory_app"
-      DATABASE_PORT: "5432"
+      RUBYOPT: '-W:no-deprecated -W:no-experimental'
+      RAILS_MASTER_KEY: '${RAILS_MASTER_KEY}'
+      DATABASE_USERNAME: 'postgres'
+      DATABASE_PASSWORD: 'postgres'
+      DATABASE_HOST: 'db_memory_app'
+      DATABASE_PORT: '5432'
     tty: true
     command: sh
     ports:
-      - "3000:3000"
+      - '3000:3000'
 
+  memory_app_vue:
+    image: edimossilva/memory_app_vue
+    container_name: memory_app_vue
+    volumes:
+      - ./frontend_vue:/app
+    ports:
+      - '8080:8080'
+    tty: true
+    command: yarn serve
 volumes:
   db_memory_app_volume:
 # docker-compose build
@@ -39,3 +48,4 @@ volumes:
 # docker-compose exec memory_app_back rake db:create
 # docker-compose exec memory_app_back rake db:migrate
 # docker-compose exec memory_app_back rspec
+# docker-compose exec memory_app_vue yarn test:unit
