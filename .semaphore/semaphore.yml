@@ -65,7 +65,7 @@ blocks:
             - ruby simple_cov_merger.rb
             - cp -r coverage ../
             - cd ..
-            - sed -i 's+./../app+app+g' coverage/.resultset.json
+            - sed -i 's+./../backend_rails+app+g' coverage/.resultset.json
             - 'curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter'
             - chmod +x ./cc-test-reporter
             - ./cc-test-reporter before-build
