@@ -59,9 +59,9 @@ blocks:
             - rubocop
   - name: backend merge tests
     dependencies:
-      - rspec 1/2
-      - rspec 2/2
-      - rubocop lint
+      - backend rspec 1/2
+      - backend rspec 2/2
+      - backend rubocop lint
     task:
       jobs:
         - name: merge tests
@@ -84,9 +84,9 @@ blocks:
     skip:
       when: branch != 'master'
     dependencies:
-      - rspec 1/2
-      - rspec 2/2
-      - rubocop lint
+      - backend rspec 1/2
+      - backend rspec 2/2
+      - backend rubocop lint
     task:
       jobs:
         - name: deploy heroku
