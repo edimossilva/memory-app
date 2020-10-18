@@ -44,7 +44,7 @@ blocks:
         - name: rubocop lint
           commands:
             - checkout
-            - cd app
+            - cd backend_rails
             - gem install rubocop-rails
             - rubocop
   - name: merge tests
@@ -65,11 +65,11 @@ blocks:
             - ruby simple_cov_merger.rb
             - cp -r coverage ../
             - cd ..
-            - sed -i 's+./../app+app+g' coverage/.resultset.json
+            - sed -i 's+./../backend_rails+backend_rails+g' coverage/.resultset.json
             - 'curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter'
             - chmod +x ./cc-test-reporter
             - ./cc-test-reporter before-build
-            - ./cc-test-reporter after-build --exit-code 0 -t simplecov -r d341aee07bf1ff51e397e80382d5ff14905e9f9b620ec5562094a9662f279755 -p ./app
+            - ./cc-test-reporter after-build --exit-code 0 -t simplecov -r d341aee07bf1ff51e397e80382d5ff14905e9f9b620ec5562094a9662f279755 -p ./backend_rails
   - name: deploy heroku
     skip:
       when: branch != 'master'
