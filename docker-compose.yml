@@ -15,7 +15,7 @@ services:
     image: edimossilva/memory_app_rails
     container_name: memory_app_back
     volumes:
-      - ./app:/app
+      - ./backend_rails:/app
     depends_on:
       - db_memory_app
     env_file:
