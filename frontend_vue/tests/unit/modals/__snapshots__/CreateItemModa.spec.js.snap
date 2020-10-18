@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CreateItemModal.vue Matchs Snapshot 1`] = `
+<modal-stub name="create-item-modal" class="create-item-modal-js"><label> Key: </label> <input type="text" class="create-item-modal--input-key-js"> <label> Value: </label> <input type="text" class="create-item-modal--input-value-js">
+  <btn-stub label="create" onclick="function () { [native code] }" class="create-item-modal--button-create-js"></btn-stub>
+</modal-stub>
+`;

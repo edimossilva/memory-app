@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Btn.vue Matchs Snapshot 1`] = `<button>mock label</button>`;
