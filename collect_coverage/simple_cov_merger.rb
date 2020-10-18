@@ -41,6 +41,6 @@ end
 
 SimpleCovMerger.report_coverage(
   base_dir: './input',
-  ci_project_path: '/backend_rails/app',
+  ci_project_path: '/app/app',
   project_path: './../backend_rails/app'
 )
